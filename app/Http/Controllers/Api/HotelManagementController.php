@@ -91,8 +91,8 @@ class HotelManagementController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:hotels,email',
             'phone' => 'required|string|max:20',
-            'payment_integration_type' => 'required|in:DIRECT,AGGREGATED',
-            'subscription_plan' => 'required|in:Basic,Standard,Premium',
+            'payment_integration_type' => 'required',
+            'subscription_plan' => 'required|in:basic,standard,premium',
             'mpesa_consumer_key' => 'nullable|string',
             'mpesa_consumer_secret' => 'nullable|string',
             'mpesa_shortcode' => 'nullable|string',
@@ -104,9 +104,9 @@ class HotelManagementController extends Controller
         ]);
 
         $subscriptionFees = [
-            'Basic' => 2000,
-            'Standard' => 3000,
-            'Premium' => 5000,
+            'basic' => 2000,
+            'standard' => 3000,
+            'premium' => 5000,
         ];
 
         $validated['subscription_fee'] = $subscriptionFees[$validated['subscription_plan']];
@@ -121,53 +121,53 @@ class HotelManagementController extends Controller
             ->with('success', 'Hotel "' . $hotel->name . '" has been successfully onboarded!');
     }
 
-    public function show(Hotel $hotel)
-    {
-        $hotel->load(['orders' => function ($query) {
-            $query->orderBy('created_at', 'desc')->limit(50);
-        }]);
+    // public function show(Hotel $hotel)
+    // {
+    //     $hotel->load(['orders' => function ($query) {
+    //         $query->orderBy('created_at', 'desc')->limit(50);
+    //     }]);
 
-        return view('Management.show', compact('hotel'));
-    }
+    //     return view('Management.show', compact('hotel'));
+    // }
 
-    public function edit(Hotel $hotel)
-    {
-        return view('Management.edit', compact('hotel'));
-    }
+    // public function edit(Hotel $hotel)
+    // {
+    //     return view('Management.edit', compact('hotel'));
+    // }
 
-    public function update(Request $request, Hotel $hotel)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:hotels,email,' . $hotel->id,
-            'phone' => 'required|string|max:20',
-            'payment_integration_type' => 'required|in:DIRECT,AGGREGATED',
-            'subscription_plan' => 'required|in:Basic,Standard,Premium',
-            'is_active' => 'boolean',
-            'mpesa_consumer_key' => 'nullable|string',
-            'mpesa_consumer_secret' => 'nullable|string',
-            'mpesa_shortcode' => 'nullable|string',
-            'mpesa_passkey' => 'nullable|string',
-            'mpesa_environment' => 'nullable|in:sandbox,production',
-            'payout_bank_account' => 'nullable|string',
-            'payout_bank_name' => 'nullable|string',
-            'payout_schedule' => 'nullable|in:weekly,bi-weekly,monthly',
-        ]);
+    // public function update(Request $request, Hotel $hotel)
+    // {
+    //     $validated = $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'email' => 'required|email|unique:hotels,email,' . $hotel->id,
+    //         'phone' => 'required|string|max:20',
+    //         'payment_integration_type' => 'required|in:DIRECT,AGGREGATED',
+    //         'subscription_plan' => 'required|in:Basic,Standard,Premium',
+    //         'is_active' => 'boolean',
+    //         'mpesa_consumer_key' => 'nullable|string',
+    //         'mpesa_consumer_secret' => 'nullable|string',
+    //         'mpesa_shortcode' => 'nullable|string',
+    //         'mpesa_passkey' => 'nullable|string',
+    //         'mpesa_environment' => 'nullable|in:sandbox,production',
+    //         'payout_bank_account' => 'nullable|string',
+    //         'payout_bank_name' => 'nullable|string',
+    //         'payout_schedule' => 'nullable|in:weekly,bi-weekly,monthly',
+    //     ]);
 
-        $hotel->update($validated);
+    //     $hotel->update($validated);
 
-        return redirect()
-            ->route('management.dashboard')
-            ->with('success', 'Hotel "' . $hotel->name . '" has been updated!');
-    }
+    //     return redirect()
+    //         ->route('management.dashboard')
+    //         ->with('success', 'Hotel "' . $hotel->name . '" has been updated!');
+    // }
 
-    public function destroy(Hotel $hotel)
-    {
-        $hotel->is_active = false;
-        $hotel->save();
+    // public function destroy(Hotel $hotel)
+    // {
+    //     $hotel->is_active = false;
+    //     $hotel->save();
 
-        return redirect()
-            ->route('management.dashboard')
-            ->with('success', 'Hotel "' . $hotel->name . '" has been deactivated!');
-    }
+    //     return redirect()
+    //         ->route('management.dashboard')
+    //         ->with('success', 'Hotel "' . $hotel->name . '" has been deactivated!');
+    // }
 }

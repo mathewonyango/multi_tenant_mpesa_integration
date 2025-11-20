@@ -62,6 +62,7 @@ class PaymentController extends Controller
     
     public function callback(Request $request)
     {
+        // dd($request)
         Log::info('M-PESA Callback', $request->all());
         
         try {

@@ -110,9 +110,9 @@
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                 required>
                             <option value="">Select plan</option>
-                            <option value="Basic" {{ old('subscription_plan') === 'Basic' ? 'selected' : '' }}>Basic - KES 2,000/month</option>
-                            <option value="Standard" {{ old('subscription_plan') === 'Standard' ? 'selected' : '' }}>Standard - KES 3,000/month</option>
-                            <option value="Premium" {{ old('subscription_plan') === 'Premium' ? 'selected' : '' }}>Premium - KES 5,000/month</option>
+                            <option value="basic" {{ old('subscription_plan') === 'basic' ? 'selected' : '' }}>Basic - KES 2,000/month</option>
+                            <option value="standard" {{ old('subscription_plan') === 'standard' ? 'selected' : '' }}>Standard - KES 3,000/month</option>
+                            <option value="premium" {{ old('subscription_plan') === 'premium' ? 'selected' : '' }}>Premium - KES 5,000/month</option>
                         </select>
                     </div>
                 </div>
@@ -130,10 +130,10 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             required>
                         <option value="">Select payment type</option>
-                        <option value="DIRECT" {{ old('payment_integration_type') === 'DIRECT' ? 'selected' : '' }}>
+                        <option value="direct" {{ old('payment_integration_type') === 'direct' ? 'selected' : '' }}>
                             Direct - Hotel has their own M-Pesa keys
                         </option>
-                        <option value="AGGREGATED" {{ old('payment_integration_type') === 'AGGREGATED' ? 'selected' : '' }}>
+                        <option value="aggregated" {{ old('payment_integration_type') === 'aggregated' ? 'selected' : '' }}>
                             Aggregated - System manages payments
                         </option>
                     </select>
@@ -290,7 +290,7 @@
             payoutFields.style.display = 'none';
             payoutScheduleField.style.display = 'none';
 
-            if (paymentType === 'DIRECT') {
+            if (paymentType === 'direct') {
                 // Show M-Pesa fields and payout fields
                 mpesaFields.style.display = 'block';
                 payoutFields.style.display = 'block';
